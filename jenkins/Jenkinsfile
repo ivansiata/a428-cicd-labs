@@ -1,8 +1,6 @@
 node {
   docker.image('node:lts-buster-slim').inside {
     stage('Build') {
-        sh 'npm cache clean --force'
-        sh 'npm rm -rf node_modules && rm package-lock.json'
         sh 'npm install'
     }
     stage('Test') {
@@ -13,7 +11,7 @@ node {
     }
     stage('Deploy') {
         sh './jenkins/scripts/deliver.sh'
-        sleep 60s
+        sleep 60
         sh './jenkins/scripts/kill.sh'
     }
   }
